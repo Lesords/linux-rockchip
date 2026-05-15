@@ -116,8 +116,6 @@
 		regulator-always-on;
 		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <5000000>;
-		enable-active-high;
-		gpio = <&gpio_xten 1 GPIO_ACTIVE_HIGH>;
 		vin-supply = <&vcc_sys>;
 	};
 
@@ -128,8 +126,6 @@
 		regulator-always-on;
 		regulator-min-microvolt = <5000000>;
 		regulator-max-microvolt = <5000000>;
-		enable-active-high;
-		gpio = <&gpio_xten 2 GPIO_ACTIVE_HIGH>;
 		vin-supply = <&vcc_sys>;
 	};
 
@@ -300,34 +296,8 @@
 
 
 &sfc0 {
-	status = "okay";
-	max-freq = <50000000>;
-	#address-cells = <1>;
-	#size-cells = <0>;
-	pinctrl-names = "default";
-	pinctrl-0 = <&fspi0_pins>;
-	
-	spi_flash: spi-flash@0 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "jedec,spi-nor";
-		reg = <0x0>;
-		spi-max-frequency = <50000000>;
-		spi-tx-bus-width = <1>;
-		spi-rx-bus-width = <4>;
-		status = "okay";
-
-		partitions {
-			compatible = "fixed-partitions";
-			#address-cells = <1>;
-			#size-cells = <1>;
-
-			loader@0 {
-				label = "loader";
-				reg = <0x0 0x1000000>;
-			};
-		};
-	};
+	status = "disabled";
+	/delete-node/ spi-flash@0;
 };
 
 &spi3 {
@@ -584,11 +554,15 @@
 	no-sdio;
 	no-sd;
 	non-removable;
-	max-frequency = <100000000>;
+	max-frequency = <200000000>;
 	mmc-hs400-1_8v;
 	mmc-hs400-enhanced-strobe;
 	full-pwr-cycle-in-suspend;
-	status = "disabled";
+	vmmc-supply = <&vcc_3v3_s3>;
+	vqmmc-supply = <&vcc_1v8_s3>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&emmc_bus8 &emmc_clk &emmc_cmd &emmc_strb>;
+	status = "okay";
 };
 
 &vdpp {
@@ -727,7 +701,7 @@
 	/* rx_delay = <0x3f>; */
 
 	phy-handle = <&rgmii_phy1>;
-	status = "okay";
+	status = "disabled";
 };
 
 &mdio0 {
@@ -818,9 +792,32 @@
 	reset-gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_HIGH>;
 	rockchip,skip-scan-in-resume;
 	vpcie3v3-supply = <&vcc3v3_pcie>;
-	status = "okay";
+	status = "disabled";
 };
 
+&i2c2 {
+	status = "okay";
+
+	eeprom:	at24c256@50 {
+		status = "okay";
+		compatible = "atmel,24c32";
+		reg = <0x50>;
+		pagesize = <16>;
+	};
+
+	pcf8563: pcf8563@51 {
+		compatible = "nxp,pcf8563a";
+		reg = <0x51>;
+		status = "okay";
+		interrupt-parent = <&gpio0>;
+		interrupts = <RK_PA5 IRQ_TYPE_EDGE_FALLING>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pcf8563_int>;
+		#clock-cells = <0>;
+		clock-frequency = <32768>;
+		clock-output-names = "xin32k";
+	};
+};
 
 &i2c4 {
 	status = "okay";
@@ -831,6 +828,7 @@
 		reg = <0x21>;
 		gpio-controller;
 		#gpio-cells = <2>;
+		vcc-supply = <&gpio_exp_3v3_en>;
 		
 		interrupt-controller;
 		gpio-line-names =
@@ -844,44 +842,6 @@
 		"P16"	,"P17";
 		
 		gpio-line-offsets = <0>, <1>, <2>, <3>, <4>, <5>, <6>, <7>, <8>, <9>, <10>, <11>, <12>, <13>, <14>, <15>;
-	};
-
-
-	eeprom:	at24c256@57 {
-		status = "okay";
-		compatible = "atmel,24c256";
-		reg = <0x57>;
-		pagesize = <16>;
-	};
-
-	pcf8563: pcf8563@51 {
-		compatible = "nxp,pcf8563";
-		reg = <0x51>;
-		status = "okay";
-		interrupt-parent = <&gpio0>;
-		interrupts = <RK_PA5 IRQ_TYPE_EDGE_FALLING>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&pcf8563_int>;
-		#clock-cells = <0>;
-		clock-frequency = <32768>;
-		clock-output-names = "xin32k";
-	};
-
-	es8311: es8311@18 {
-		status = "okay";
-		compatible = "everest,es8311";
-		reg = <0x18>;
-		#sound-dai-cells = <0>;
-		adc-pga-gain = <6>;     /* 18dB */
-		adc-volume = <0xbf>;    /* 0dB */
-		dac-volume = <0xbf>;    /* 0dB */
-		aec-mode = "adc left, adc right";
-		clocks = <&mclkout_sai1>;
-		clock-names = "mclk";
-		assigned-clocks = <&mclkout_sai1>;
-		assigned-clock-rates = <12288000>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&sai1m0_mclk>;
 	};
 
 	/* Typec Controller Fusb302 */
@@ -951,6 +911,27 @@
 		};
 	};
 
+};
+
+&i2c6 {
+	status = "okay";
+
+	es8311: es8311@18 {
+		status = "okay";
+		compatible = "everest,es8311";
+		reg = <0x18>;
+		#sound-dai-cells = <0>;
+		adc-pga-gain = <6>;     /* 18dB */
+		adc-volume = <0xbf>;    /* 0dB */
+		dac-volume = <0xbf>;    /* 0dB */
+		aec-mode = "adc left, adc right";
+		clocks = <&mclkout_sai1>;
+		clock-names = "mclk";
+		assigned-clocks = <&mclkout_sai1>;
+		assigned-clock-rates = <12288000>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&sai1m0_mclk>;
+	};
 };
 
 // &gpio_xten {
