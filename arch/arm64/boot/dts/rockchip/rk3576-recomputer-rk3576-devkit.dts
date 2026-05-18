@@ -148,9 +148,7 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 		enable-active-high;
-		regulator-boot-on;
-		regulator-always-on;
-		gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+		gpios = <&gpio2 RK_PD5 GPIO_ACTIVE_HIGH>;
 		startup-delay-us = <5000>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&pcie_pwr_en>;
@@ -789,10 +787,13 @@
 };
 
 &pcie0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pcie0m0_pins>;
 	reset-gpios = <&gpio2 RK_PB1 GPIO_ACTIVE_HIGH>;
 	rockchip,skip-scan-in-resume;
+	rockchip,perst-inactive-ms = <500>;
 	vpcie3v3-supply = <&vcc3v3_pcie>;
-	status = "disabled";
+	status = "okay";
 };
 
 &i2c2 {
@@ -1131,7 +1132,7 @@
 
 	pcie {
 		pcie_pwr_en: pcie-pwr-en {
-			rockchip,pins = <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
+			rockchip,pins = <2 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
