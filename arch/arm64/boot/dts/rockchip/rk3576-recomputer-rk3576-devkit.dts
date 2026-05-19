@@ -44,10 +44,10 @@
 		#cooling-cells = <2>;
 		cooling-levels = <0 50 100 150 200 255>;
 		fan-supply = <&vcc_sys>;
-		pwms = <&pwm0_2ch_0 0 60000 0>;
+		pwms = <&pwm2_8ch_7 0 60000 0>;
 
-		interrupt-parent = <&gpio3>;
-		interrupts = <RK_PC5 IRQ_TYPE_EDGE_BOTH>;
+		interrupt-parent = <&gpio0>;
+		interrupts = <RK_PD0 IRQ_TYPE_EDGE_BOTH>;
 		pulses-per-revolution = <2>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&fan_tach>;
@@ -246,7 +246,6 @@
 		keyup-threshold-microvolt = <1800000>;
 		poll-interval = <100>;
 		hp-det-gpio = <&gpio2 RK_PB7 GPIO_ACTIVE_HIGH>;
-		hp-con-gpio = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
 		rockchip,pre-power-on-delay-ms = <30>;
 		rockchip,post-power-down-delay-ms = <40>;
 		rockchip,format = "i2s";
@@ -260,7 +259,7 @@
             "AMIC", "Main Mic",
             "AMIC", "Headset Mic";
 		pinctrl-names = "default";
-		pinctrl-0 = <&hp_det &hp_con>;
+		pinctrl-0 = <&hp_det>;
 
 	};
 
@@ -1087,8 +1086,8 @@
 	status = "okay";
 };
 
-&pwm0_2ch_0 {
-	pinctrl-0 = <&pwm0m3_ch0>;
+&pwm2_8ch_7 {
+	pinctrl-0 = <&pwm2m2_ch7>;
 	status = "okay";
 };
 
@@ -1154,7 +1153,7 @@
 
 	fan {
 		fan_tach: fan-tach {
-			rockchip,pins = <3 RK_PC5 RK_FUNC_GPIO &pcfg_pull_up>;
+			rockchip,pins = <0 RK_PD0 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 
