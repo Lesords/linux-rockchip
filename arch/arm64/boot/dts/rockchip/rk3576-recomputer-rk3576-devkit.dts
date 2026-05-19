@@ -593,7 +593,7 @@
 &hdmi {
 	status = "okay";
 	cec-enable;
-	enable-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
+	enable-gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_HIGH>;
 	ddc-i2c-scl-high-time-ns = <4812>;
 	ddc-i2c-scl-low-time-ns = <5000>;
 };
@@ -720,12 +720,12 @@
 &sai1 {
 	status = "okay";
 	rockchip,sai-rx-route = <0 1 2 3>;
- 	rockchip,sai-tx-route = <2 1 0 3>;
+ 	rockchip,sai-tx-route = <0 1 2 3>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&sai1m0_lrck
 		     &sai1m0_sclk
 		     &sai1m0_sdi0
-		     &sai1m0_sdo2>;
+		     &sai1m0_sdo0>;
 };
 
 
@@ -915,6 +915,7 @@
 
 &i2c6 {
 	status = "okay";
+	pinctrl-0 = <&i2c6m3_xfer>;
 
 	es8311: es8311@18 {
 		status = "okay";
