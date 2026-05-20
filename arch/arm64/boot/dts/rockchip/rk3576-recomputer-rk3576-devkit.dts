@@ -798,6 +798,11 @@
 	status = "okay";
 };
 
+&i2c0 {
+	status = "okay";
+	pinctrl-0 = <&i2c0m1_xfer>;
+};
+
 &i2c2 {
 	status = "okay";
 
@@ -936,6 +941,11 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&sai1m0_mclk>;
 	};
+};
+
+&i2c7 {
+	status = "okay";
+	pinctrl-0 = <&i2c7m1_xfer>;
 };
 
 // &gpio_xten {
