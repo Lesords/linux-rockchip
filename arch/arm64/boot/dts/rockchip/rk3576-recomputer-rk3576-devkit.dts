@@ -165,19 +165,6 @@
 		pinctrl-0 = <&sdmmc_pwr_en>;
 	};
 
-	gpio_exp_3v3_en: gpio_exp_3v3_en{
-		compatible = "regulator-fixed";
-		regulator-name = "exp_3v3_en";
-		regulator-min-microvolt = <3300000>;
-		regulator-max-microvolt = <3300000>;
-		regulator-always-on;
-		regulator-boot-on;
-		enable-active-high;
-		gpios = <&gpio2 RK_PA7 GPIO_ACTIVE_HIGH>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&vsys_3v3_exp_en>;
-	};
-
 	sdio_pwrseq: sdio-pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		pinctrl-names = "default";
@@ -270,7 +257,7 @@
 		// };
 
 		user-led {
-			gpios = <&gpio_xten 9 GPIO_ACTIVE_HIGH>;
+			gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
 			linux,default-trigger = "heartbeat";
 		};
 	};
@@ -827,30 +814,9 @@
 	};
 };
 
-&i2c4 {
+&i2c3 {
 	status = "okay";
-	pinctrl-0 = <&i2c4m3_xfer>;
-
-	gpio_xten: gpio_xten@21 {
-		compatible = "nxp,pca9535";
-		reg = <0x21>;
-		gpio-controller;
-		#gpio-cells = <2>;
-		vcc-supply = <&gpio_exp_3v3_en>;
-		
-		interrupt-controller;
-		gpio-line-names =
-		"MIPI_DPHY_CSI0_IO1"	,"USB_USB30_PWREN_H",
-		"USB_HOST_PWREN_H"	,"PCIe_SX1261_RST_3V3",
-		"LTE_RESET"	,"P05",
-		"P06"	,"LoRaWan_sx1262_CS",
-		"USER_LED_R"	,"USER_LED_B",
-		"USER_LED_G"	,"P13",
-		"P14"	,"P15",
-		"P16"	,"P17";
-		
-		gpio-line-offsets = <0>, <1>, <2>, <3>, <4>, <5>, <6>, <7>, <8>, <9>, <10>, <11>, <12>, <13>, <14>, <15>;
-	};
+	pinctrl-0 = <&i2c3m1_xfer>;
 
 	/* Typec Controller Fusb302 */
 	usbc0: fusb302@22 {
@@ -918,7 +884,11 @@
 			};
 		};
 	};
+};
 
+&i2c4 {
+	status = "okay";
+	pinctrl-0 = <&i2c4m2_xfer>;
 };
 
 &i2c6 {
