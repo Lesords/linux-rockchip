@@ -37,7 +37,7 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 		enable-active-high;
-		gpio = <&gpio3 RK_PC7 GPIO_ACTIVE_HIGH>;
+		gpio = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
 		regulator-boot-on;
 		regulator-always-on;
 	};
@@ -48,13 +48,13 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 		enable-active-high;
-		gpio = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
+		gpio = <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;
 		regulator-boot-on;
 		regulator-always-on;
 	};
 
     clk_cam_24m: external-camera-clock-24m {
-        status = "disabled";
+        status = "okay";
         compatible = "fixed-clock";
         clock-frequency = <24000000>;
         clock-output-names = "clk_cam_24m";
@@ -62,7 +62,7 @@
     };
 
     clk_cam_24m_1: external-camera-clock-24m-1 {
-        status = "disabled";
+        status = "okay";
         compatible = "fixed-clock";
         clock-frequency = <24000000>;
         clock-output-names = "clk_cam_24m_1";
@@ -71,10 +71,10 @@
 
 };
 
-// cam0: i2c7
-&i2c7 {
-	status = "disabled";
-	pinctrl-0 = <&i2c7m1_xfer>;
+// cam0: i2c3
+&i2c3 {
+	status = "okay";
+	pinctrl-0 = <&i2c3m1_xfer>;
 
     imx219_0: imx219@10 {
         status = "disabled";
@@ -99,7 +99,7 @@
 
 	dw9817_0: dw9817@c {
 		compatible = "dongwoon,dw9800w";
-		status = "disabled";
+		status = "okay";
 		reg = <0x0c>;
 		VDD-supply = <&cam0_rst>;
 		/* power-supply = <&cam0_pwr>; */
@@ -112,7 +112,7 @@
 	};
 
 	imx708_0: imx708@1a {
-		status = "disabled";
+		status = "okay";
 		compatible = "sony,imx708";
 		reg = <0x1a>;
 		clocks = <&clk_cam_24m>;
@@ -136,9 +136,9 @@
 	};
 };
 
-// cam1: i2c2
-&i2c2 {
-	status = "disabled";
+// cam1: i2c6
+&i2c6 {
+	status = "okay";
 
     imx219_1: imx219@10 {
         status = "disabled";
@@ -164,10 +164,10 @@
  /**************raspberry pi cam v3**************/
 	dw9817_1: dw9817@c {
 		compatible = "dongwoon,dw9800w";
-		status = "disabled";
+		status = "okay";
 		reg = <0x0c>;
 		VDD-supply = <&cam1_rst>;
-		power-supply = <&cam1_pwr>;
+		/* power-supply = <&cam1_pwr>; */
 		rockchip,camera-module-index = <1>;
 		rockchip,vcm-start-current = <10>;
 		rockchip,vcm-rated-current = <85>;
@@ -177,13 +177,13 @@
 	};
 
 	imx708_1: imx708@1a {
-		status = "disabled";
+		status = "okay";
 		compatible = "sony,imx708";
 		reg = <0x1a>;
 		clocks = <&clk_cam_24m_1>;
 		clock-names = "xclk";
 		// reset-gpios = <&gpio 35 GPIO_ACTIVE_LOW>;
-		vana1-supply = <&cam1_pwr>;
+		/* vana1-supply = <&cam1_pwr>; */
 		pinctrl-names = "default";
 		rockchip,camera-module-index = <1>;
 		rockchip,camera-module-facing = "front";
@@ -203,8 +203,12 @@
 
 /*-----------------------------------------------------------------------*/
 
+&mipidcphy0 {
+	status = "okay";
+};
+
 &csi2_dcphy0 {
-	status = "disabled";
+	status = "okay";
 
 	ports {
 		#address-cells = <1>;
@@ -241,7 +245,7 @@
 };
 
 &csi2_dphy0 {
-	status = "disabled";
+	status = "okay";
 
 	ports {
 		#address-cells = <1>;
@@ -282,7 +286,7 @@
 /*-----------------------------------------------------------------------*/
 
 &mipi0_csi2 {
-	status = "disabled";
+	status = "okay";
 
 	ports {
 		#address-cells = <1>;
@@ -313,7 +317,7 @@
 };
 
 &mipi1_csi2 {
-	status = "disabled";
+	status = "okay";
 
 	ports {
 		#address-cells = <1>;
@@ -346,7 +350,7 @@
 /*-----------------------------------------------------------------------*/
 
 &rkcif_mipi_lvds {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		cif_mipi_in0: endpoint {
@@ -356,7 +360,7 @@
 };
 
 &rkcif_mipi_lvds1 {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		cif_mipi_in1: endpoint {
@@ -368,7 +372,7 @@
 /*-----------------------------------------------------------------------*/
 
 &rkcif_mipi_lvds_sditf {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		mipi_lvds_sditf: endpoint {
@@ -378,7 +382,7 @@
 };
 
 &rkcif_mipi_lvds1_sditf {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		mipi_lvds1_sditf: endpoint {
@@ -390,7 +394,7 @@
 /*-----------------------------------------------------------------------*/
 
 &rkisp_vir0 {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		#address-cells = <1>;
@@ -404,7 +408,7 @@
 };
 
 &rkisp_vir1 {
-	status = "disabled";
+	status = "okay";
 
 	port {
 		#address-cells = <1>;
@@ -420,27 +424,27 @@
 /*-----------------------------------------------------------------------*/
 
 &rkcif {
-	status = "disabled";
+	status = "okay";
 };
 
 &rkcif_mmu {
-	status = "disabled";
+	status = "okay";
 };
 
 &rkisp {
-	status = "disabled";
+	status = "okay";
 };
 
 &rkisp_mmu {
-	status = "disabled";
+	status = "okay";
 };
 
 &rkvpss {
-	status = "disabled";
+	status = "okay";
 };
 
 &rkvpss_mmu {
-	status = "disabled";
+	status = "okay";
 };
 
 
