@@ -105,6 +105,7 @@ struct fusb302_chip {
 	bool vbus_on;
 	bool charge_on;
 	bool vbus_present;
+	bool vbus_always_on;
 	bool wakeup;
 	enum typec_cc_polarity cc_polarity;
 	enum typec_cc_status cc1;
@@ -422,6 +423,10 @@ static int tcpm_init(struct tcpc_dev *dev)
 	if (ret < 0)
 		return ret;
 	chip->vbus_present = !!(data & FUSB_REG_STATUS0_VBUSOK);
+	if (chip->vbus_always_on) {
+		chip->vbus_present = false;
+		fusb302_log(chip, "vbus always-on, ignoring hardware vbus state");
+	}
 	ret = fusb302_i2c_read(chip, FUSB_REG_DEVICE_ID, &data);
 	if (ret < 0)
 		return ret;
@@ -437,7 +442,10 @@ static int tcpm_get_vbus(struct tcpc_dev *dev)
 	int ret = 0;
 
 	mutex_lock(&chip->lock);
-	ret = chip->vbus_present ? 1 : 0;
+	if (chip->vbus_always_on)
+		ret = chip->vbus_on ? 1 : 0;
+	else
+		ret = chip->vbus_present ? 1 : 0;
 	mutex_unlock(&chip->lock);
 
 	return ret;
@@ -784,6 +792,12 @@ static int tcpm_set_vbus(struct tcpc_dev *dev, bool on, bool charge)
 		}
 		chip->vbus_on = on;
 		fusb302_log(chip, "vbus := %s", on ? "On" : "Off");
+		if (chip->vbus_always_on) {
+			chip->vbus_present = on;
+			fusb302_log(chip, "vbus always-on, vbus_present := %s",
+				    on ? "true" : "false");
+			tcpm_vbus_change(chip->tcpm_port);
+		}
 	}
 	if (chip->charge_on == charge)
 		fusb302_log(chip, "charge is already %s",
@@ -1543,7 +1557,9 @@ static void fusb302_irq_work(struct kthread_work *work)
 		vbus_present = !!(status0 & FUSB_REG_STATUS0_VBUSOK);
 		fusb302_log(chip, "IRQ: VBUS_OK, vbus=%s",
 			    vbus_present ? "On" : "Off");
-		if (vbus_present != chip->vbus_present) {
+		if (chip->vbus_always_on) {
+			fusb302_log(chip, "vbus always-on, suppressing vbus change");
+		} else if (vbus_present != chip->vbus_present) {
 			chip->vbus_present = vbus_present;
 			tcpm_vbus_change(chip->tcpm_port);
 		}
@@ -1708,6 +1724,7 @@ static int fusb302_probe(struct i2c_client *client,
 	chip->i2c_client = client;
 	chip->dev = &client->dev;
 	mutex_init(&chip->lock);
+	chip->vbus_always_on = device_property_read_bool(dev, "linux,vbus-always-on");
 
 	/*
 	 * Devicetree platforms should get extcon via phandle (not yet
