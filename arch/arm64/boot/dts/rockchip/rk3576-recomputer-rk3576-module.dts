@@ -831,6 +831,7 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&aw35615_int>;
 		vbus-supply = <&vcc5v0_otg>;
+		linux,vbus-always-on;
 		status = "okay";
 
 		ports {

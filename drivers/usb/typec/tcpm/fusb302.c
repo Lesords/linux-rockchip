@@ -105,6 +105,7 @@ struct fusb302_chip {
 	bool vbus_on;
 	bool charge_on;
 	bool vbus_present;
+	bool vbus_always_on;
 	bool wakeup;
 	enum typec_cc_polarity cc_polarity;
 	enum typec_cc_status cc1;
@@ -422,6 +423,11 @@ static int tcpm_init(struct tcpc_dev *dev)
 	if (ret < 0)
 		return ret;
 	chip->vbus_present = !!(data & FUSB_REG_STATUS0_VBUSOK);
+	if (chip->vbus_always_on) {
+		chip->vbus_present = true;
+		chip->vbus_on = true;
+		fusb302_log(chip, "vbus always-on, assuming vbus present");
+	}
 	ret = fusb302_i2c_read(chip, FUSB_REG_DEVICE_ID, &data);
 	if (ret < 0)
 		return ret;
@@ -437,7 +443,10 @@ static int tcpm_get_vbus(struct tcpc_dev *dev)
 	int ret = 0;
 
 	mutex_lock(&chip->lock);
-	ret = chip->vbus_present ? 1 : 0;
+	if (chip->vbus_always_on)
+		ret = chip->vbus_on ? 1 : 0;
+	else
+		ret = chip->vbus_present ? 1 : 0;
 	mutex_unlock(&chip->lock);
 
 	return ret;
@@ -772,6 +781,13 @@ static int tcpm_set_vbus(struct tcpc_dev *dev, bool on, bool charge)
 	mutex_lock(&chip->lock);
 	if (chip->vbus_on == on) {
 		fusb302_log(chip, "vbus is already %s", on ? "On" : "Off");
+		if (chip->vbus_always_on && on && chip->tcpm_port)
+			tcpm_vbus_change(chip->tcpm_port);
+	} else if (chip->vbus_always_on) {
+		chip->vbus_on = on;
+		fusb302_log(chip, "vbus := %s (always-on, skip regulator)", on ? "On" : "Off");
+		if (chip->tcpm_port)
+			tcpm_vbus_change(chip->tcpm_port);
 	} else {
 		if (on)
 			ret = regulator_enable(chip->vbus);
@@ -1225,6 +1241,12 @@ static int fusb302_handle_togdone_snk(struct fusb302_chip *chip,
 	if ((chip->cc1 != cc1) || (chip->cc2 != cc2)) {
 		chip->cc1 = cc1;
 		chip->cc2 = cc2;
+		if (chip->vbus_always_on && !chip->vbus_on) {
+			chip->vbus_on = true;
+			fusb302_log(chip, "vbus := On (sink detected, always-on)");
+			if (chip->tcpm_port)
+				tcpm_vbus_change(chip->tcpm_port);
+		}
 		tcpm_cc_change(chip->tcpm_port);
 	}
 	/* turn off toggling */
@@ -1708,6 +1730,7 @@ static int fusb302_probe(struct i2c_client *client,
 	chip->i2c_client = client;
 	chip->dev = &client->dev;
 	mutex_init(&chip->lock);
+	chip->vbus_always_on = device_property_read_bool(dev, "linux,vbus-always-on");
 
 	/*
 	 * Devicetree platforms should get extcon via phandle (not yet
