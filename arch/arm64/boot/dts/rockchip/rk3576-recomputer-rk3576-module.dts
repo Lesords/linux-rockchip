@@ -713,6 +713,12 @@
 		     &sai1m0_sdo0>;
 };
 
+/* bt pcm/i2s */
+&sai2 {
+	status = "okay";
+	rockchip,sai-rx-route = <0 1 2 3>;
+	rockchip,sai-tx-route = <0 1 2 3>;
+};
 
 &sai6 {
 	status = "okay";
