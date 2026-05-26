@@ -183,7 +183,7 @@
 	wireless_wlan: wireless-wlan {
 		compatible = "wlan-platdata";
 		wifi_chip_type = "fcs960k";
-		clocks = <&pcf8563>; 
+		clocks = <&pcf85063>;
 		clock-names = "ext_clock";
 		pinctrl-names = "default";
 		pinctrl-0 = <&wifi_host_wake_irq>;
@@ -806,14 +806,15 @@
 		pagesize = <16>;
 	};
 
-	pcf8563: pcf8563@51 {
-		compatible = "nxp,pcf8563a";
+	pcf85063: pcf85063@51 {
+		compatible = "nxp,pcf85063a";
 		reg = <0x51>;
 		status = "okay";
 		interrupt-parent = <&gpio0>;
 		interrupts = <RK_PA5 IRQ_TYPE_EDGE_FALLING>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&pcf8563_int>;
+		pinctrl-0 = <&pcf85063_int>;
+		quartz-load-femtofarads = <12500>;
 		#clock-cells = <0>;
 		clock-frequency = <32768>;
 		clock-output-names = "xin32k";
@@ -1111,8 +1112,8 @@
 		};
 	};
 
-	pcf8563 {
-		pcf8563_int: pcf8563-int {
+	pcf85063 {
+		pcf85063_int: pcf85063-int {
 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
