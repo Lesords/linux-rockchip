@@ -183,7 +183,7 @@
 	wireless_wlan: wireless-wlan {
 		compatible = "wlan-platdata";
 		wifi_chip_type = "fcs960k";
-		clocks = <&pcf85063>;
+		clocks = <&xin32k>;
 		clock-names = "ext_clock";
 		pinctrl-names = "default";
 		pinctrl-0 = <&wifi_host_wake_irq>;
@@ -815,9 +815,6 @@
 		pinctrl-names = "default";
 		pinctrl-0 = <&pcf85063_int>;
 		quartz-load-femtofarads = <12500>;
-		#clock-cells = <0>;
-		clock-frequency = <32768>;
-		clock-output-names = "xin32k";
 	};
 };
 
