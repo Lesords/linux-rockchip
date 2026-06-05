@@ -786,8 +786,19 @@ static int tcpm_set_vbus(struct tcpc_dev *dev, bool on, bool charge)
 	} else if (chip->vbus_always_on) {
 		chip->vbus_on = on;
 		fusb302_log(chip, "vbus := %s (always-on, skip regulator)", on ? "On" : "Off");
-		if (chip->tcpm_port)
-			tcpm_vbus_change(chip->tcpm_port);
+		if (on) {
+			chip->vbus_present = true;
+			if (chip->tcpm_port)
+				tcpm_vbus_change(chip->tcpm_port);
+		} else {
+			/*
+			 * Force vbus_present false so VBUS_OK interrupt
+			 * detects the change when DRP toggling starts,
+			 * allowing TCPM to set vbus_vsafe0v (needed for
+			 * SRC_ATTACH_WAIT to proceed).
+			 */
+			chip->vbus_present = false;
+		}
 	} else {
 		if (on)
 			ret = regulator_enable(chip->vbus);
@@ -1243,6 +1254,7 @@ static int fusb302_handle_togdone_snk(struct fusb302_chip *chip,
 		chip->cc2 = cc2;
 		if (chip->vbus_always_on && !chip->vbus_on) {
 			chip->vbus_on = true;
+			chip->vbus_present = true;
 			fusb302_log(chip, "vbus := On (sink detected, always-on)");
 			if (chip->tcpm_port)
 				tcpm_vbus_change(chip->tcpm_port);
