@@ -278,8 +278,17 @@
 
 
 &sfc0 {
-	status = "disabled";
-	/delete-node/ spi-flash@0;
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&fspi0_pins &fspi0_csn0>;
+
+	flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <100000000>;
+		spi-rx-bus-width = <4>;
+		spi-tx-bus-width = <1>;
+	};
 };
 
 &spi3 {
@@ -544,7 +553,7 @@
 	vqmmc-supply = <&vcc_1v8_s3>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&emmc_bus8 &emmc_clk &emmc_cmd &emmc_strb>;
-	status = "okay";
+	status = "disabled"; /* eMMC removed on SPI Flash variant; GPIO1 pins reused by FSPI0 */
 };
 
 &vdpp {
