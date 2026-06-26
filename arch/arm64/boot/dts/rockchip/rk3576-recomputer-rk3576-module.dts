@@ -726,15 +726,19 @@
 };
 
 &sdmmc {
+        /* max-frequency = <25000000>; */
         max-frequency = <100000000>;
-        pinctrl-0 = <&sdmmc0_clk &sdmmc0_cmd &sdmmc0_det &sdmmc0_bus4>;
+        pinctrl-0 = <&sdmmc0_clk &sdmmc0_cmd &sdmmc0_bus4>;
         pinctrl-names = "default";
         no-sdio;
         no-mmc;
-        bus-width = <4>;
+        /* bus-width = <1>; */
+        bus-width = <1>;
         cap-mmc-highspeed;
         cap-sd-highspeed;
         disable-wp;
+        non-removable;
+        post-power-on-delay-ms = <500>;
         sd-uhs-sdr104;
         vqmmc-supply = <&vccio_sd_s0>;
         vmmc-supply = <&sdmmc_pwr>;
