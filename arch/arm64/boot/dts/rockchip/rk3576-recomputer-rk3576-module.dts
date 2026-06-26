@@ -834,18 +834,6 @@
 		vbus-supply = <&vcc5v0_otg>;
 		status = "okay";
 
-		ports {
-			#address-cells = <1>;
-			#size-cells = <0>;
-
-			port@0 {
-				reg = <0>;
-				usbc0_role_sw: endpoint@0 {
-					remote-endpoint = <&usb_drd0_role_switch>;
-				};
-			};
-		};
-
 		usb_con: connector {
 			compatible = "usb-c-connector";
 			label = "USB-C";
@@ -997,18 +985,12 @@
 };
 
 &usb_drd0_dwc3 {
-	dr_mode = "otg";
-	usb-role-switch;
+	dr_mode = "host";
 	status = "okay";
 	snps,parkmode-disable-hs-quirk;
 	snps,parkmode-disable-ss-quirk;
 	snps,dis_u3_susphy_quirk;
 	snps,dis_u2_susphy_quirk;
-	port {
-		usb_drd0_role_switch: endpoint {
-			remote-endpoint = <&usbc0_role_sw>;
-		};
-	};
 };
 
 /* DP */
