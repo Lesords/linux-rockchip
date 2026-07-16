@@ -65,10 +65,10 @@
 
 };
 
-// cam0: i2c3
-&i2c3 {
+// cam0: i2c4
+&i2c4 {
 	status = "okay";
-	pinctrl-0 = <&i2c3m1_xfer>;
+	pinctrl-0 = <&i2c4m2_xfer>;
 
     imx219_0: imx219@10 {
         status = "disabled";
