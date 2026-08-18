@@ -185,7 +185,7 @@
 
 	wireless_wlan: wireless-wlan {
 		compatible = "wlan-platdata";
-		wifi_chip_type = "fcs960k";
+		wifi_chip_type = "wq9201s";
 		clocks = <&xin32k>;
 		clock-names = "ext_clock";
 		pinctrl-names = "default";
@@ -196,6 +196,8 @@
 
 	wireless_bluetooth: wireless-bluetooth {
 		compatible = "bluetooth-platdata";
+		clocks = <&xin32k>;
+		clock-names = "ext_clock";
 		uart_rts_gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default", "rts_gpio";
 		pinctrl-0 = <&uart4m1_rtsn>;
@@ -754,6 +756,7 @@
 	cap-sdio-irq;
 	keep-power-in-suspend;
 	mmc-pwrseq = <&sdio_pwrseq>;
+	vqmmc-supply = <&vcc_1v8_s3>;
 	non-removable;
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc1m0_bus4 &sdmmc1m0_clk &sdmmc1m0_cmd>;
@@ -826,9 +829,9 @@
 	pinctrl-0 = <&i2c3m1_xfer>;
 };
 
-&i2c4 {
+&i2c5 {
 	status = "okay";
-	pinctrl-0 = <&i2c4m2_xfer>;
+	pinctrl-0 = <&i2c5m2_xfer>;
 
 	es8311: es8311@18 {
 		status = "okay";

@@ -31,11 +31,11 @@
 	};
 
 	fragment@1 {
-		target = <&i2c0>;
+		target = <&i2c6>;
 
 		__overlay__ {
 			status = "okay";
-			pinctrl-0 = <&i2c0m1_xfer>;
+			pinctrl-0 = <&i2c6m3_xfer>;
 
 			display_mcu: display_mcu@45 {
 				compatible = "raspberrypi,v2-touchscreen-panel-regulator";

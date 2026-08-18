@@ -65,10 +65,10 @@
 
 };
 
-// cam0: i2c4
-&i2c4 {
+// cam0: i2c5
+&i2c5 {
 	status = "okay";
-	pinctrl-0 = <&i2c4m2_xfer>;
+	pinctrl-0 = <&i2c5m2_xfer>;
 
     imx219_0: imx219@10 {
         status = "disabled";
@@ -114,7 +114,7 @@
 		/* vana1-supply = <&cam0_pwr>; */
 		pinctrl-names = "default";
 
-		reset-gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
 		rockchip,camera-module-index = <0>;
 		rockchip,camera-module-facing = "front";
 		rockchip,camera-module-name = "rpi-camera-v3";
