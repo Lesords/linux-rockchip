@@ -287,26 +287,11 @@
 	/delete-node/ spi-flash@0;
 };
 
+/* 40PIN only (M0: pin 7/22/15/36, GPIO3_A0~A3) — no on-board device,
+ * enable via recomputer-rk3576-module-io-board-40pin-spi3 overlay */
 &spi3 {
-	status = "okay";
-	pinctrl-0 = <&spi3m1_csn1 &spi3m1_pins>;
-
-	spidev@1 {
-		compatible = "spidev";
-		reg = <1>;
-		status = "okay";
-	};
-
-	// m6108: mm6108@1 {
-	// 	compatible = "morse,mm610x-spi";
-	// 	reg = <1>;
-	// 	spi-max-frequency = <50000000>;
-	// 	spi-irq-gpios = <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
-	// 	// reset-gpios = <&gpio_xten 4 GPIO_ACTIVE_HIGH>;
-	// 	// power-gpios = <&gpio1 RK_PB1 GPIO_ACTIVE_HIGH>, <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
-	// 	status = "okay";
- 	// };
-
+	status = "disabled";
+	pinctrl-0 = <&spi3m0_csn0 &spi3m0_pins>;
 };
 
 &cpu_l0 {
@@ -1160,14 +1145,14 @@
 		"", "", "", "",
 
 		/* GPIO0_C0-C3 */
-		"", "PIN_27", "PIN_28", "",
+		"", "", "", "",
 		/* GPIO0_C4-C7 */
-		"PIN_34", "", "", "",
+		"PIN_33", "", "PIN_5", "PIN_3",
 
 		/* GPIO0_D0-D3 */
 		"", "", "", "",
 		/* GPIO0_D4-D7 */
-		"", "", "", "";
+		"PIN_8", "PIN_10", "", "";
 };
 
 &gpio1 {
@@ -1198,28 +1183,28 @@
 		/* GPIO2_A0-A3 */
 		"", "", "", "",
 		/* GPIO2_A4-A7 */
-		"", "", "PIN_6", "PIN_4",
+		"", "", "", "",
 
 		/* GPIO2_B0-B3 */
 		"", "", "", "",
 		/* GPIO2_B4-B7 */
-		"PIN_38", "PIN_36", "PIN_30", "PIN_32",
+		"PIN_37", "PIN_35", "PIN_29", "PIN_31",
 
 		/* GPIO2_C0-C3 */
-		"PIN_31", "PIN_25", "PIN_20", "PIN_22",
+		"PIN_32", "PIN_26", "PIN_19", "PIN_21",
 		/* GPIO2_C4-C7 */
-		"PIN_23", "PIN_24", "", "",
+		"PIN_24", "PIN_23", "", "",
 
 		/* GPIO2_D0-D3 */
-		"PIN_15", "PIN_17", "", "",
+		"PIN_16", "PIN_18", "", "",
 		/* GPIO2_D4-D7 */
-		"", "", "PIN_11", "";
+		"", "", "PIN_12", "";
 };
 
 &gpio3 {
 	gpio-line-names =
 		/* GPIO3_A0-A3 */
-		"PIN_8", "PIN_21", "PIN_16", "PIN_35",
+		"PIN_7", "PIN_22", "PIN_15", "PIN_36",
 		/* GPIO3_A4-A7 */
 		"", "", "", "",
 
@@ -1244,17 +1229,17 @@
 		/* GPIO4_A0-A3 */
 		"", "", "", "",
 		/* GPIO4_A4-A7 */
-		"PIN_37", "", "PIN_39", "",
+		"PIN_38", "", "PIN_40", "",
 
 		/* GPIO4_B0-B3 */
 		"", "", "", "",
 		/* GPIO4_B4-B7 */
-		"PIN_12", "PIN_14", "", "",
+		"PIN_11", "PIN_13", "", "",
 
 		/* GPIO4_C0-C3 */
 		"", "", "", "",
 		/* GPIO4_C4-C7 */
-		"", "", "", "",
+		"", "", "PIN_28", "PIN_27",
 
 		/* GPIO4_D0-D3 */
 		"", "", "", "",
