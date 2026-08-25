@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/* 40PIN I2C8 (M2): pin 29 (SCL), pin 31 (SDA), internal pull-up (no external resistors on board) */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&i2c8>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c8m2_xfer_pullup>;
+		};
+	};
+};
