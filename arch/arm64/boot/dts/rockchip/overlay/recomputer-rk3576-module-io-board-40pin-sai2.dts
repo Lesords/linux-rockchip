@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN SAI2 (M1) I2S: pin 19 (SCLK), pin 21 (LRCK), pin 23 (SDI),
+ * pin 24 (SDO), pin 26 (MCLK)
+ *
+ * WARNING: SAI2 is enabled in base DTS on M0 pins for BT PCM (HFP audio).
+ * Loading this overlay re-muxes the controller to the 40-pin header and
+ * breaks BT call audio. Mutually exclusive with: 40pin-spi1, 40pin-uart11
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&sai2>;
+
+		__overlay__ {
+			status = "okay";
+			rockchip,sai-rx-route = <0 1 2 3>;
+			rockchip,sai-tx-route = <0 1 2 3>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&sai2m1_mclk
+				     &sai2m1_sclk
+				     &sai2m1_lrck
+				     &sai2m1_sdi
+				     &sai2m1_sdo>;
+		};
+	};
+};

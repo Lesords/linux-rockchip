@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN UART11 (M1) with flow control: pin 24 (TX), pin 23 (RX),
+ * pin 19 (CTS), pin 21 (RTS)
+ * Mutually exclusive with: 40pin-spi1, 40pin-sai2, 40pin-pwm1-ch2/3/4,
+ * 40pin-pwm0-m2
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&uart11>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&uart11m1_xfer &uart11m1_ctsn &uart11m1_rtsn>;
+		};
+	};
+};

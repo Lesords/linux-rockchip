@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN PWM2 CH0 (M2): pin 16
+ * Mutually exclusive with: 40pin-i2c6-m2, 40pin-pwm2-ch1 users of pins 16/18
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&pwm2_8ch_0>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "active";
+			pinctrl-0 = <&pwm2m2_ch0>;
+		};
+	};
+};

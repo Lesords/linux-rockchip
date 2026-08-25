@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN PWM2 CH2 (M1): pin 28 (ID_SC)
+ * Disables the base I2C6 bus which owns pins 27/28 (M3).
+ * Mutually exclusive with: 40pin-can1-m1, 40pin-pwm2-ch3, 40pin-i2c6 usage
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&pwm2_8ch_2>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "active";
+			pinctrl-0 = <&pwm2m1_ch2>;
+		};
+	};
+
+	fragment@1 {
+		target = <&i2c6>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

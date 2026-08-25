@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN I2C7 (M1): pin 7 (SCL), pin 22 (SDA)
+ * Mutually exclusive with: 40pin-spi3, 40pin-sai3, 40pin-uart3
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&i2c7>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c7m1_xfer>;
+		};
+	};
+};

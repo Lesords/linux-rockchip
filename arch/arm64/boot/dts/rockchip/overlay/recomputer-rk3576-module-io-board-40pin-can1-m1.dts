@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN CAN1 (M1): pin 27 (RX), pin 28 (TX)
+ * Disables the base I2C6 bus which owns pins 27/28 (M3).
+ * Mutually exclusive with: 40pin-pwm2-ch2/ch3, 40pin-can1 (M2, pins 11/13)
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&can1>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&can1m1_pins>;
+		};
+	};
+
+	fragment@1 {
+		target = <&i2c6>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

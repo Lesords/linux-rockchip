@@ -1,0 +1,24 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN I2C6 (M2): pin 16 (SCL), pin 18 (SDA)
+ * Switch variant: moves the I2C6 bus from its base M3 pins (27/28,
+ * ID_SD/ID_SC) to pins 16/18. Do not combine with 40pin-i2c6 usage
+ * on 27/28 (40pin-can1-m1, 40pin-pwm2-ch2/ch3).
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&i2c6>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&i2c6m2_xfer>;
+		};
+	};
+};

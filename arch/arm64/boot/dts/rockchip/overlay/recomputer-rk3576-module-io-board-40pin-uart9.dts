@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN UART9 (M0): pin 26 (TX), pin 32 (RX) — note pins are split
+ * across the header
+ * Mutually exclusive with: 40pin-pwm1-ch1, 40pin-pwm1, 40pin-spi1 (CSN1)
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&uart9>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <&uart9m0_xfer>;
+		};
+	};
+};

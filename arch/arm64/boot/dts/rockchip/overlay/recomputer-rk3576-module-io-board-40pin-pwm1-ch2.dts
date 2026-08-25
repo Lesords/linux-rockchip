@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * 40PIN PWM1 CH2 (M2): pin 19
+ * Mutually exclusive with: 40pin-spi1 (MOSI), 40pin-uart11, 40pin-sai2
+ */
+
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/pinctrl/rockchip.h>
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	fragment@0 {
+		target = <&pwm1_6ch_2>;
+
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "active";
+			pinctrl-0 = <&pwm1m2_ch2>;
+		};
+	};
+};
