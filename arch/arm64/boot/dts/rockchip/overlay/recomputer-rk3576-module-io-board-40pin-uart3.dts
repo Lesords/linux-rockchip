@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 /*
- * 40PIN UART3 (M0) with flow control: pin 7 (TX), pin 22 (RX),
- * pin 15 (CTS), pin 36 (RTS)
+ * 40PIN UART3 (M0): pin 7 (TX), pin 22 (RX)
  * Mutually exclusive with: 40pin-spi3, 40pin-sai3, 40pin-i2c7
  */
 
@@ -17,7 +16,7 @@
 		__overlay__ {
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <&uart3m0_xfer &uart3m0_ctsn &uart3m0_rtsn>;
+			pinctrl-0 = <&uart3m0_xfer>;
 		};
 	};
 };

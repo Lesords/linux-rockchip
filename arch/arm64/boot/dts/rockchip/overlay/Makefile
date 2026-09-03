@@ -329,10 +329,9 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	recomputer-rk3576-module-io-board-40pin-spi3.dtbo \
 	recomputer-rk3576-module-io-board-40pin-can0.dtbo \
 	recomputer-rk3576-module-io-board-40pin-can1.dtbo \
-	recomputer-rk3576-module-io-board-40pin-pwm0.dtbo \
-	recomputer-rk3576-module-io-board-40pin-pwm1.dtbo \
+	recomputer-rk3576-module-io-board-40pin-pwm0-ch0.dtbo \
+	recomputer-rk3576-module-io-board-40pin-pwm1-ch0.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm2-ch6.dtbo \
-	recomputer-rk3576-module-io-board-40pin-uart7-rtsn.dtbo \
 	recomputer-rk3576-module-io-board-40pin-uart2.dtbo \
 	recomputer-rk3576-module-io-board-40pin-uart3.dtbo \
 	recomputer-rk3576-module-io-board-40pin-uart6.dtbo \
@@ -341,11 +340,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	recomputer-rk3576-module-io-board-40pin-i2c4.dtbo \
 	recomputer-rk3576-module-io-board-40pin-i2c7.dtbo \
 	recomputer-rk3576-module-io-board-40pin-i2c8.dtbo \
-	recomputer-rk3576-module-io-board-40pin-i2c3-m0.dtbo \
 	recomputer-rk3576-module-io-board-40pin-i2c6-m2.dtbo \
-	recomputer-rk3576-module-io-board-40pin-sai2.dtbo \
 	recomputer-rk3576-module-io-board-40pin-sai3.dtbo \
-	recomputer-rk3576-module-io-board-40pin-pwm0-m2.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm1-ch1.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm1-ch2.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm1-ch3.dtbo \
@@ -354,8 +350,6 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	recomputer-rk3576-module-io-board-40pin-pwm2-ch1.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm2-ch2.dtbo \
 	recomputer-rk3576-module-io-board-40pin-pwm2-ch3.dtbo \
-	recomputer-rk3576-module-io-board-40pin-can1-m1.dtbo \
-	recomputer-rk3576-module-io-board-40pin-can1-m3.dtbo \
 	recomputer-rk3576-devkit-raspi-7inch-touchscreen.dtbo \
 	recomputer-rk3576-devkit-40pin-pwm2-ch6.dtbo \
 	recomputer-rk3576-devkit-40pin-can0.dtbo \
