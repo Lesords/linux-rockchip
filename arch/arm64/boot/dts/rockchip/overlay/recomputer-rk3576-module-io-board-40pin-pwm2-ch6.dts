@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN PWM2 CH6 (M2): pin 12
- * (fan uses PWM2 CH7 on GPIO2_D7, not on the header — no conflict)
- */
+/* 40PIN PWM2 CH6 (M2): pin 12 */
 
 /dts-v1/;
 /plugin/;

@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN PWM1 CH1 (M2): pin 26
- * Mutually exclusive with: 40pin-spi1 (CSN1), 40pin-uart9, 40pin-sai2
- */
+/* 40PIN PWM1 CH1 (M2): pin 26 */
 
 /dts-v1/;
 /plugin/;

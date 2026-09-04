@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN I2C3 (M1): pin 3 (SDA1), pin 5 (SCL1)
- */
+/* 40PIN I2C3 (M1): pin 3 (SDA), pin 5 (SCL) */
 
 /dts-v1/;
 /plugin/;

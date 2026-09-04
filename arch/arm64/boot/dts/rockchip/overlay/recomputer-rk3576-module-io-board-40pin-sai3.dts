@@ -2,7 +2,6 @@
 /*
  * 40PIN SAI3 (M2) I2S: pin 7 (SCLK), pin 12 (MCLK), pin 15 (SDO),
  * pin 22 (LRCK), pin 36 (SDI)
- * Mutually exclusive with: 40pin-spi3, 40pin-uart3
  */
 
 /dts-v1/;

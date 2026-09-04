@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN I2C4 (M1): pin 38 (SCL), pin 40 (SDA)
- * Mutually exclusive with: 40pin-can0, 40pin-uart6
- */
+/* 40PIN I2C4 (M1): pin 38 (SCL), pin 40 (SDA) */
 
 /dts-v1/;
 /plugin/;

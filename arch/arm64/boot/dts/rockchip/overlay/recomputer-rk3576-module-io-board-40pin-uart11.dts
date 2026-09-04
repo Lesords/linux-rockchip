@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN UART11 (M1): pin 24 (TX), pin 23 (RX)
- * Mutually exclusive with: 40pin-spi1, 40pin-pwm1-ch1/2/3/4
- */
+/* 40PIN UART11 (M1): pin 24 (TX), pin 23 (RX) */
 
 /dts-v1/;
 /plugin/;

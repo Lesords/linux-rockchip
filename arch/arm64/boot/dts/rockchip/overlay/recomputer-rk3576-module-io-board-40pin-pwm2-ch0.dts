@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN PWM2 CH0 (M2): pin 16
- * Mutually exclusive with: 40pin-i2c6-m2, 40pin-pwm2-ch1 users of pins 16/18
- */
+/* 40PIN PWM2 CH0 (M2): pin 16 */
 
 /dts-v1/;
 /plugin/;

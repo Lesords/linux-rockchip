@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN UART6 (M0): pin 38 (TX), pin 40 (RX)
- * Mutually exclusive with: 40pin-can0, 40pin-i2c4
- */
+/* 40PIN UART6 (M0): pin 38 (TX), pin 40 (RX) */
 
 /dts-v1/;
 /plugin/;

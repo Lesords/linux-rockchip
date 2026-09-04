@@ -1,8 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN I2C8 (M2): pin 29 (SCL), pin 31 (SDA)
- * Mutually exclusive with: 40pin-uart7-rtsn (base UART7 xfer on 29/31)
- */
+/* 40PIN I2C8 (M2): pin 29 (SCL), pin 31 (SDA) */
 
 /dts-v1/;
 /plugin/;

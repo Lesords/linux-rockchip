@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/*
- * 40PIN CAN1 (M2): pin 11 (RX), pin 13 (TX)
- */
+/* 40PIN CAN1 (M2): pin 11 (RX), pin 13 (TX) */
 
 /dts-v1/;
 /plugin/;
