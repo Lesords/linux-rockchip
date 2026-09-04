@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-/* 40PIN I2C7 (M1): pin 7 (SCL), pin 22 (SDA) */
+/* 40PIN I2C7 (M1): pin 7 (SCL), pin 22 (SDA), internal pull-up (no external resistors on board) */
 
 /dts-v1/;
 /plugin/;
@@ -13,7 +13,7 @@
 		__overlay__ {
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <&i2c7m1_xfer>;
+			pinctrl-0 = <&i2c7m1_xfer_pullup>;
 		};
 	};
 };
