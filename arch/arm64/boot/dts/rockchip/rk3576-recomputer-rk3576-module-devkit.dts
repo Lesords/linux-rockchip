@@ -287,13 +287,6 @@
 	/delete-node/ spi-flash@0;
 };
 
-/* 40PIN only (M0: pin 7/22/15/36, GPIO3_A0~A3) — no on-board device,
- * enable via recomputer-rk3576-module-io-board-40pin-spi3 overlay */
-&spi3 {
-	status = "disabled";
-	pinctrl-0 = <&spi3m0_csn0 &spi3m0_pins>;
-};
-
 &cpu_l0 {
 	cpu-supply = <&vdd_cpu_lit_s0>;
 };
@@ -749,12 +742,6 @@
 	// uart-has-rtscts;
 };
 
-&uart7 {
-	status = "okay";
-	pinctrl-names = "default";
-	pinctrl-0 = <&uart7m0_xfer &uart7m0_ctsn>;
-};
-
 &combphy0_ps {
 	status = "okay";
 };
@@ -771,11 +758,6 @@
 	rockchip,perst-inactive-ms = <500>;
 	vpcie3v3-supply = <&vcc3v3_pcie>;
 	status = "okay";
-};
-
-&i2c0 {
-	status = "disabled";
-	pinctrl-0 = <&i2c0m1_xfer>;
 };
 
 &i2c2 {
@@ -798,11 +780,6 @@
 		pinctrl-0 = <&pcf85063_int>;
 		quartz-load-femtofarads = <12500>;
 	};
-};
-
-&i2c3 {
-	status = "disabled";
-	pinctrl-0 = <&i2c3m1_xfer>;
 };
 
 &i2c5 {
@@ -892,16 +869,6 @@
 			};
 		};
 	};
-};
-
-&i2c6 {
-	status = "okay";
-	pinctrl-0 = <&i2c6m3_xfer>;
-};
-
-&i2c7 {
-	status = "disabled";
-	pinctrl-0 = <&i2c7m1_xfer>;
 };
 
 // &gpio_xten {

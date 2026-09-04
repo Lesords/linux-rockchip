@@ -133,6 +133,7 @@
 // cam1: i2c6
 &i2c6 {
 	status = "okay";
+	pinctrl-0 = <&i2c6m3_xfer>;
 
     imx219_1: imx219@10 {
         status = "disabled";
