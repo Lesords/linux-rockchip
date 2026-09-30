@@ -286,6 +286,18 @@
 &vop {
 	status = "okay";
 	vop-supply = <&vdd_logic_s0>;
+
+	/*
+	 * Esmart line buffer mode 4 (4K_4K_4K): all Esmart windows get full
+	 * 4K-wide line buffers. The default mode 5 (4K_4K_2K_2K) leaves
+	 * ESMART2/3 at 2K capacity; with multi-area sharing on a three-display
+	 * setup the 4K primary plane can end up with an undersized slice and
+	 * the VOP clamps sampling at ~2560px, stretching the right third of
+	 * the 4K display (verified on module-devkit, 2026-09: mode 5 ->
+	 * stretch, mode 4 -> fixed). Cost: ESMART1-3 are ignored by the
+	 * plane allocator under this mode.
+	 */
+	esmart_lb_mode = /bits/ 8 <4>;
 };
 
 &vop_mmu {
