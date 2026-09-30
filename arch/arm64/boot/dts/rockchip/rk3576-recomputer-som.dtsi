@@ -286,6 +286,7 @@
 &vop {
 	status = "okay";
 	vop-supply = <&vdd_logic_s0>;
+	esmart_lb_mode = /bits/ 8 <4>;
 };
 
 &vop_mmu {
