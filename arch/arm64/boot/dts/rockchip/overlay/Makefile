@@ -116,11 +116,15 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3576-pwm1-ch0-m3.dtbo \
 	rk3576-pwm2-ch6-m2.dtbo \
 	rk3576-pwm2-ch7-m2.dtbo \
+	rk3576-sdmmc0-1bit.dtbo \
+	rk3576-sdmmc0-1bit-noremovable.dtbo \
 	rk3576-spi4-m0-cs1-spidev.dtbo \
 	rk3576-uart2-m2.dtbo \
 	rk3576-uart6-m3.dtbo \
 	rk3576-uart7-m0.dtbo \
 	rk3576-uart10-m2.dtbo \
+	rk3576-usb-drd0-host.dtbo \
+	rk3576-usb-hub-reset.dtbo \
 	rk3588-can0-m0.dtbo \
 	rk3588-can1-m0.dtbo \
 	rk3588-can1-m1.dtbo \
